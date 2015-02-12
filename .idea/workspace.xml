@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83862b95-e281-4781-990e-fb8dba0c83d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.db" afterPath="$PROJECT_DIR$/app.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models.py" afterPath="$PROJECT_DIR$/app/models.py" />
     </list>
     <ignored path="WhiskyApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,84 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="config.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="11" selection-end="11" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db_create.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db_create.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="28" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-              <folding>
-                <element signature="e#15#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="26" selection-start="98" selection-end="98" vertical-scroll-proportion="0.2" vertical-offset="0" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+            <state line="14" column="73" selection-start="542" selection-end="542" vertical-scroll-proportion="0.46666667" vertical-offset="0" max-vertical-offset="450">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db_migrate.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db_migrate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <folding>
-                <element signature="e#15#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db_upgrade.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db_upgrade.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="43" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
-              <folding>
-                <element signature="e#15#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db_downgrade.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db_downgrade.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="44" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
-              <folding>
-                <element signature="e#15#49#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -122,13 +50,13 @@
       <list>
         <option value="$PROJECT_DIR$/db_create.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
-        <option value="$PROJECT_DIR$/app/models.py" />
         <option value="$PROJECT_DIR$/db_migrate.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/db_upgrade.py" />
         <option value="$PROJECT_DIR$/db_downgrade.py" />
         <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/app/models.py" />
       </list>
     </option>
   </component>
@@ -212,7 +140,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.run">
+  <component name="RunManager" selected="Python.db_migrate">
     <configuration default="false" name="db_create" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -395,8 +323,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.run" />
-        <item index="1" class="java.lang.String" itemvalue="Python.db_migrate" />
+        <item index="0" class="java.lang.String" itemvalue="Python.db_migrate" />
+        <item index="1" class="java.lang.String" itemvalue="Python.run" />
         <item index="2" class="java.lang.String" itemvalue="Python.db_create" />
       </list>
     </recent_temporary>
@@ -480,50 +408,57 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/db_migrate.py">
+    <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding>
-            <element signature="e#15#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+        <state line="6" column="19" selection-start="56" selection-end="56" vertical-scroll-proportion="0.21077283" vertical-offset="0" max-vertical-offset="427">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_create.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="28" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding>
-            <element signature="e#15#24#0" expanded="true" />
-          </folding>
+        <state line="2" column="0" selection-start="11" selection-end="11" vertical-scroll-proportion="0.06666667" vertical-offset="0" max-vertical-offset="450">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+        <state line="3" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.1" vertical-offset="0" max-vertical-offset="450">
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
+    <entry file="file://$PROJECT_DIR$/db_create.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="11" selection-end="11" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
+        <state line="15" column="28" selection-start="385" selection-end="385" vertical-scroll-proportion="0.5" vertical-offset="0" max-vertical-offset="450">
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="26" selection-start="98" selection-end="98" vertical-scroll-proportion="0.2" vertical-offset="0" max-vertical-offset="450">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db_migrate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="150" selection-end="150" vertical-scroll-proportion="0.3" vertical-offset="0" max-vertical-offset="450">
+          <folding>
+            <element signature="e#15#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db_upgrade.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="43" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+        <state line="9" column="43" selection-start="294" selection-end="294" vertical-scroll-proportion="0.3" vertical-offset="0" max-vertical-offset="450">
           <folding>
             <element signature="e#15#49#0" expanded="true" />
           </folding>
@@ -532,23 +467,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db_downgrade.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="44" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+        <state line="10" column="44" selection-start="371" selection-end="371" vertical-scroll-proportion="0.33333334" vertical-offset="0" max-vertical-offset="450">
           <folding>
             <element signature="e#15#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
+    <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="19" selection-start="56" selection-end="56" vertical-scroll-proportion="0.21077283" vertical-offset="0" max-vertical-offset="427">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="26" selection-start="98" selection-end="98" vertical-scroll-proportion="0.2" vertical-offset="0" max-vertical-offset="450">
+        <state line="14" column="73" selection-start="542" selection-end="542" vertical-scroll-proportion="0.46666667" vertical-offset="0" max-vertical-offset="450">
           <folding />
         </state>
       </provider>
