@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid
 from app.models import User
@@ -11,17 +11,16 @@ def load_user(id):
 
 @app.before_request
 def before_request():
-    g.user = current_user
-    if g.user.is_authenticated():
-        g.user.last_seen = datetime.utcnow()
-        db.session.add(g.user)
+    if current_user.is_authenticated():
+        current_user.last_seen = datetime.utcnow()
+        db.session.add(current_user)
         db.session.commit()
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    user = g.user
+    user = current_user
     return render_template('index.html',
                            title='Home',
                            user=user)
@@ -29,7 +28,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 @oid.loginhandler
 def login():
-    if g.user is not None and g.user.is_authenticated():
+    if current_user is not None and current_user.is_authenticated():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -65,3 +64,23 @@ def after_login(resp):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/user/<nickname>')
+@login_required
+def user(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user == None:
+        flash('User {0} not found.'.format(nickname))
+        return redirect(url_for('index'))
+    reviews = [
+        {'author': user, 'whisky': 'Highland Park 12', 'body': 'Nice and slightly smoky; well balanced.',
+         'timestamp': datetime.utcnow()}
+    ]
+    return render_template('user.html',
+                           title=user.nickname + ' profile',
+                           user=user,
+                           reviews=reviews)
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404

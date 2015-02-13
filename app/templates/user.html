@@ -1,0 +1,17 @@
+<!-- extend base template -->
+{% extends 'base.html' %}
+{% block content %}
+        <table>
+            <tr valign="top">
+                <td>
+                    <h1>User: {{ user.nickname}}</h1>
+                    {% if user.about %}<p>{{ user.about }}</p>{% endif %}
+                    {% if user.last_seen %}<p><i>Last seen on: {{ user.last_seen }}</i></p>{% endif %}
+                </td>
+            </tr>
+        </table>
+        <hr>
+        {% for review in reviews %}
+            {% include 'review.html' %}
+        {% endfor %}
+{% endblock %}
