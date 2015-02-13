@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid
 from app.models import User
-from app.forms import LoginForm
+from app.forms import LoginForm, EditProfileForm
 from datetime import datetime
 
 @lm.user_loader
@@ -73,13 +73,31 @@ def user(nickname):
         flash('User {0} not found.'.format(nickname))
         return redirect(url_for('index'))
     reviews = [
-        {'author': user, 'whisky': 'Highland Park 12', 'body': 'Nice and slightly smoky; well balanced.',
+        {'author': user, 'whisky': 'Highland Park 12', 'notes': 'Nice and slightly smoky; well balanced.',
          'timestamp': datetime.utcnow()}
     ]
     return render_template('user.html',
                            title=user.nickname + ' profile',
                            user=user,
                            reviews=reviews)
+
+@app.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit():
+    form = EditProfileForm(current_user.nickname)
+    if form.validate_on_submit():
+        current_user.nickname = form.nickname.data
+        current_user.about = form.about.data
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit'))
+    else:
+        form.nickname.data = current_user.nickname
+        form.about.data = current_user.about
+    return render_template('edit.html',
+                           form=form,
+                           title='Edit Profile')
 
 @app.errorhandler(404)
 def not_found_error(error):

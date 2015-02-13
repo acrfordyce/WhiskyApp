@@ -16,7 +16,7 @@
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
-            {% if message %}
+            {% if messages %}
                 <ul>
                     {% for message in messages %}
                         <li>{{ message }}</li>
