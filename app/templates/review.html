@@ -3,6 +3,9 @@
         <td>
             <img src="{{ user.avatar(50) }}">
         </td>
-        <td><i>{{ review.author.nickname }}</i> reviewed <b>{{ review.whisky }}</b>:<br>{{ review.notes }}</td>
+        <td>
+            <i>{{ review.author.nickname }}</i> reviewed <b>{{ review.whisky.name }}</b>:<br>{{ review.notes }}
+            <br><b>{{ review.score }}/100</b><br>[{{ review.timestamp }}]
+        </td>
     </tr>
 </table>

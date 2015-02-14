@@ -1,0 +1,41 @@
+<!-- extend base template -->
+{% extends 'base.html' %}
+{% block content %}
+        <h1>Submit a Whisky</h1>
+        <form action="" method="post" name="add_whisky">
+            {{ form.hidden_tag() }}
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        {{ form.name }}
+                        {% for error in form.errors.name %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Age Statement:<br>(input "NAS" if none given)</td>
+                    <td>
+                        {{ form.age_statement }}
+                        {% for error in form.errors.age_statement %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Region:</td>
+                    <td>
+                        {{ form.region }}
+                        {% for error in form.errors.region %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+{% endblock %}

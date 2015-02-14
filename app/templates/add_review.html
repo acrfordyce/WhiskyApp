@@ -1,0 +1,42 @@
+<!-- extend base template -->
+{% extends 'base.html' %}
+{% block content %}
+        <h1>Add a Review</h1>
+        <p>Don't see your whisky in the list? Add it here: <a href="{{ url_for('add_whisky') }}">Submit Whisky</a></p>
+        <form action="" method="post" name="add_review">
+            {{ form.hidden_tag() }}
+            <table>
+                <tr>
+                    <td>Select Whisky:</td>
+                    <td>
+                        {{ form.whisky }}
+                        {% for error in form.errors.whisky %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Notes:</td>
+                    <td>
+                        {{ form.notes(cols=32, rows=10) }}
+                        {% for error in form.errors.notes %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Score (out of 100):</td>
+                    <td>
+                        {{ form.score(size=3) }}
+                        {% for error in form.errors.score %}
+                        <br><span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Enter Review"></td>
+                </tr>
+            </table>
+        </form>
+{% endblock %}
