@@ -13,3 +13,10 @@ OPENID_PROVIDERS = [
     {'name': 'Google', 'url': 'http://www.google.com/profiles/<username>'},
     {'name': 'Yahoo', 'url': 'https://me.yahoo.com'},
 ]
+
+OAUTH_PROVIDERS = {
+    'facebook': {
+        'id': '700744030042277',
+        'secret': '9535c8cc76e26fcd510c15c780cc1b57'
+    }
+}

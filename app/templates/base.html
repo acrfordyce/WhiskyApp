@@ -9,9 +9,6 @@
     <body>
         <div>ScotchDB:
             <a href="{{ url_for('index') }}">Home</a>
-            {% if not current_user.is_authenticated() %}
-            | <a href="{{ url_for('login') }}">Login</a>
-            {% endif %}
             {% if current_user.is_authenticated() %}
             | <a href="{{ url_for('user', nickname=current_user.nickname) }}">Profile</a>
             | <a href="{{ url_for('add_review', nickname=current_user.nickname) }}">Add Review</a>

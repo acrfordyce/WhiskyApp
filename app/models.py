@@ -1,4 +1,5 @@
 from app import db
+from flask_login import UserMixin
 from hashlib import md5
 
 
@@ -9,9 +10,10 @@ class Whisky(db.Model):
     region = db.Column(db.String(120))
     reviews = db.relationship('Review', backref='whisky', lazy='dynamic')
 
-class User(db.Model):
+class User(UserMixin,   db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(64), index=True, unique=True)
+    social_id = db.Column(db.String(64), nullable=False, unique=True)
+    nickname = db.Column(db.String(64), index=True)
     about = db.Column(db.String(140))
     email = db.Column(db.String(120), index=True, unique=True)
     reviews = db.relationship('Review', backref='author', lazy='dynamic')
@@ -41,8 +43,11 @@ class User(db.Model):
             version += 1
         return new_nickname
 
-    def avatar(self, size):
-        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
+    def avatar(self, social_id, size):
+        user = User.query.filter_by(social_id=social_id).first()
+        if user.social_id.split('$')[0] == 'facebook':
+            facebook_id = user.social_id.split('$')[1]
+            return 'http://graph.facebook.com/{0}/picture/?type={1}'.format(facebook_id, size)
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

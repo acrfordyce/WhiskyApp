@@ -50,7 +50,7 @@ class AddReviewForm(Form):
 class AddWhiskyForm(Form):
     name = StringField('name', validators=[DataRequired(), Length(min=1, max=120)])
     age_statement = StringField('age_statement', validators=[DataRequired(), Length(min=1, max=3)])
-    region = SelectField('region', choices=REGION_CHOICES, coerce=enumerate)
+    region = SelectField('region', choices=REGION_CHOICES, coerce=int)
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
