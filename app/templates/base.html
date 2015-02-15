@@ -1,13 +1,13 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - WhiskyApp</title>
+        <title>{{ title }} - ScotchDB</title>
         {% else %}
-        <title>Welcome to WhiskyApp</title>
+        <title>Welcome to ScotchDB</title>
         {% endif %}
     </head>
     <body>
-        <div>WhiskyApp:
+        <div>ScotchDB:
             <a href="{{ url_for('index') }}">Home</a>
             {% if not current_user.is_authenticated() %}
             | <a href="{{ url_for('login') }}">Login</a>
