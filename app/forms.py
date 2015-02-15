@@ -1,6 +1,6 @@
 from flask_wtf import Form
-from wtforms import StringField, BooleanField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms import StringField, TextAreaField, SelectField
+from wtforms.validators import DataRequired, Length
 from app.models import User, Whisky
 
 
@@ -12,9 +12,6 @@ REGION_CHOICES = [
         (5, "Lowland"),
         (6, "Speyside")
     ]
-class LoginForm(Form):
-    openid = StringField('openid', validators=[DataRequired()])
-    remember_me = BooleanField('remember_me', default=False)
 
 
 class EditProfileForm(Form):

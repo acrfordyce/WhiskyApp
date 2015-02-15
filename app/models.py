@@ -1,6 +1,5 @@
 from app import db
 from flask_login import UserMixin
-from hashlib import md5
 
 
 class Whisky(db.Model):

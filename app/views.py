@@ -1,9 +1,9 @@
-from flask import render_template, flash, redirect, session, url_for, request
+from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from app.oauth import OAuthSignIn
-from app import app, db, lm, oid
+from app import app, db, lm
 from app.models import User, Whisky, Review
-from app.forms import LoginForm, EditProfileForm, AddReviewForm, AddWhiskyForm, REGION_CHOICES
+from app.forms import EditProfileForm, AddReviewForm, AddWhiskyForm, REGION_CHOICES
 from datetime import datetime
 
 
