@@ -1,5 +1,8 @@
+import tweepy
+
 from app import db
 from flask_login import UserMixin
+from config import OAUTH_PROVIDERS
 
 
 class Whisky(db.Model):
@@ -47,6 +50,19 @@ class User(UserMixin,   db.Model):
         if user.social_id.split('$')[0] == 'facebook':
             facebook_id = user.social_id.split('$')[1]
             return 'http://graph.facebook.com/{0}/picture/?type={1}'.format(facebook_id, size)
+        elif user.social_id.split('$')[0] == 'twitter':
+            twitter_id = user.social_id.split('$')[1]
+            auth = tweepy.OAuthHandler(
+                consumer_key=OAUTH_PROVIDERS['twitter']['id'],
+                consumer_secret=OAUTH_PROVIDERS['twitter']['secret']
+            )
+            auth.set_access_token(
+                OAUTH_PROVIDERS['twitter']['access_token'],
+                OAUTH_PROVIDERS['twitter']['access_secret']
+            )
+            api = tweepy.API(auth)
+            twitter_user = api.get_user(user_id=twitter_id)
+            return twitter_user.profile_image_url
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

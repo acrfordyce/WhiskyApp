@@ -9,14 +9,15 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'I-love-Scotch'
 
-OPENID_PROVIDERS = [
-    {'name': 'Google', 'url': 'http://www.google.com/profiles/<username>'},
-    {'name': 'Yahoo', 'url': 'https://me.yahoo.com'},
-]
-
 OAUTH_PROVIDERS = {
     'facebook': {
         'id': '700744030042277',
         'secret': '9535c8cc76e26fcd510c15c780cc1b57'
+    },
+    'twitter': {
+        'id': 'rjM5DadWK0zWgRjIZN9LAcX5r',
+        'secret': 'rS8GCDmeHCygWBWCOuNBlH83Qof0fAAk7TItKGqM5JBc9q6Ygs',
+        'access_token': '422224182-QPE9OYk9IvoDHmo833S4pvY7O3fRFWtzdbeiVog0',
+        'access_secret': 't30eB35U2xxNBYH3VoBOJjC8wGTzfrUeK9EfriPUwjvH0'
     }
 }
