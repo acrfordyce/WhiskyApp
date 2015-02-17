@@ -11,4 +11,3 @@ To wipe the db and start fresh, delete app.db and the db_repository directory an
 
 To start the app, use run.py and navigate to localhost:5000 in a browser.
 
-TODO: change login procedure to use OAuth2.
