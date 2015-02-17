@@ -13,14 +13,20 @@
                         <br><span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
                     </td>
+                    <td>
+                        <i>Examples: Highland Park 12 or Glenmorangie Nectar D'Or</i>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Age Statement:<br>(input "NAS" if none given)</td>
+                    <td>Age Statement:</td>
                     <td>
                         {{ form.age_statement }}
                         {% for error in form.errors.age_statement %}
                         <br><span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
+                    </td>
+                    <td>
+                        <i>Examples: 15 or NAS</i>
                     </td>
                 </tr>
                 <tr>
