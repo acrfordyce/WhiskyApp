@@ -1,8 +1,5 @@
-import tweepy
-
 from app import db
 from flask_login import UserMixin
-from config import OAUTH_PROVIDERS
 
 
 class Whisky(db.Model):
@@ -18,6 +15,7 @@ class User(UserMixin,   db.Model):
     nickname = db.Column(db.String(64), index=True)
     about = db.Column(db.String(140))
     email = db.Column(db.String(120), index=True, unique=True)
+    picture_uri = db.Column(db.String(140))
     reviews = db.relationship('Review', backref='author', lazy='dynamic')
     last_seen = db.Column(db.DateTime)
 
@@ -38,6 +36,7 @@ class User(UserMixin,   db.Model):
         if User.query.filter_by(nickname=nickname).first() is None:
             return nickname
         version = 2
+        new_nickname = ''
         while True:
             new_nickname = nickname + str(version)
             if User.query.filter_by(nickname=new_nickname).first() is None:
@@ -51,18 +50,12 @@ class User(UserMixin,   db.Model):
             facebook_id = user.social_id.split('$')[1]
             return 'http://graph.facebook.com/{0}/picture/?type={1}'.format(facebook_id, size)
         elif user.social_id.split('$')[0] == 'twitter':
-            twitter_id = user.social_id.split('$')[1]
-            auth = tweepy.OAuthHandler(
-                consumer_key=OAUTH_PROVIDERS['twitter']['id'],
-                consumer_secret=OAUTH_PROVIDERS['twitter']['secret']
-            )
-            auth.set_access_token(
-                OAUTH_PROVIDERS['twitter']['access_token'],
-                OAUTH_PROVIDERS['twitter']['access_secret']
-            )
-            api = tweepy.API(auth)
-            twitter_user = api.get_user(user_id=twitter_id)
-            return twitter_user.profile_image_url
+            return user.picture_uri
+        elif user.social_id.split('$')[0] == 'google':
+            if size == 'small':
+                return user.picture_uri + '?sz=50'
+            return user.picture_uri + '?sz=250'
+
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

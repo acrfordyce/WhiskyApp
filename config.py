@@ -19,5 +19,9 @@ OAUTH_PROVIDERS = {
         'secret': 'rS8GCDmeHCygWBWCOuNBlH83Qof0fAAk7TItKGqM5JBc9q6Ygs',
         'access_token': '422224182-QPE9OYk9IvoDHmo833S4pvY7O3fRFWtzdbeiVog0',
         'access_secret': 't30eB35U2xxNBYH3VoBOJjC8wGTzfrUeK9EfriPUwjvH0'
+    },
+    'google': {
+        'id': '77305032384-kfc4anuckhqvlirvprffberm7e5cmh7s.apps.googleusercontent.com',
+        'secret': 'H13dFDZCleSmU9k_-yCUrrP_'
     }
 }

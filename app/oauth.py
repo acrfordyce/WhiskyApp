@@ -52,7 +52,7 @@ class FacebookSignIn(OAuthSignIn):
 
     def callback(self):
         if 'code' not in request.args:
-            return None, None, None
+            return None, None, None, None
         oauth_session = self.service.get_auth_session(
             data={'code': request.args['code'],
                   'grant_type': 'authorization_code',
@@ -62,7 +62,8 @@ class FacebookSignIn(OAuthSignIn):
         return (
             'facebook$' + me['id'],
             me.get('email').split('@')[0], # facebook does not provide username
-            me.get('email')
+            me.get('email'),
+            None # facebook does not provide profile picture URI on login
         )
 
 
@@ -89,13 +90,54 @@ class TwitterSignIn(OAuthSignIn):
     def callback(self):
         request_token = session.pop('request_token')
         if 'oauth_verifier' not in request.args:
-            return None, None, None
+            return None, None, None, None
         oauth_session = self.service.get_auth_session(
             request_token[0],
             request_token[1],
             data={'oauth_verifier': request.args['oauth_verifier']}
         )
         me = oauth_session.get('account/verify_credentials.json').json()
+        print(me)
         social_id = 'twitter$' + str(me.get('id'))
         username = me.get('screen_name')
-        return social_id, username, None  # Twitter does not provide email
+        picture_uri = me.get('profile_image_url')
+        print(picture_uri)
+        return social_id, username, None, picture_uri  # Twitter does not provide email
+
+
+class GoogleSignIn(OAuthSignIn):
+    def __init__(self):
+        super(GoogleSignIn, self).__init__('google')
+        self.service = OAuth2Service(
+            name='google',
+            client_id=self.consumer_id,
+            client_secret=self.consumer_secret,
+            authorize_url='https://accounts.google.com/o/oauth2/auth',
+            access_token_url='https://accounts.google.com/o/oauth2/token',
+            base_url='https://accounts.google.com/'
+        )
+
+    def authorize(self):
+        return redirect(self.service.get_authorize_url(
+            scope='email',
+            response_type='code',
+            redirect_uri=self.get_callback_url())
+        )
+
+    def callback(self):
+        if 'code' not in request.args:
+            return None, None, None, None
+        raw_oauth_session = self.service.get_raw_access_token(
+            data={'code': request.args['code'],
+                  'grant_type': 'authorization_code',
+                  'redirect_uri': self.get_callback_url()}
+        )
+        raw = raw_oauth_session.json()
+        self.oauth_session = self.service.get_session(raw['access_token'])
+        u = self.oauth_session.get('https://www.googleapis.com/oauth2/v1/userinfo').json()
+        return(
+            'google$' + u.get('id'),
+            u.get('email').split('@')[0],
+            u.get('email'),
+            u.get('picture')
+        )

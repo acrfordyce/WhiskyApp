@@ -42,7 +42,7 @@ def oauth_callback(provider):
     if not current_user.is_anonymous():
         return redirect(url_for('index'))
     oauth = OAuthSignIn.get_provider(provider)
-    social_id, username, email = oauth.callback()
+    social_id, username, email, picture_uri = oauth.callback()
     if social_id is None:
         flash('Authentication failed.')
         return redirect(url_for('index'))
@@ -54,6 +54,8 @@ def oauth_callback(provider):
         user = User(social_id=social_id, nickname=username, email=email)
         db.session.add(user)
         db.session.commit()
+    user.picture_uri = picture_uri
+    db.session.commit()
     login_user(user, True)
     return redirect(url_for('index'))
 
