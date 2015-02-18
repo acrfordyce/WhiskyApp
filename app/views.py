@@ -73,7 +73,7 @@ def user(nickname):
     if user is None:
         flash('User {0} not found.'.format(nickname))
         return redirect(url_for('index'))
-    reviews = Review.query.filter_by(author=current_user).order_by(Review.timestamp.desc()).all()
+    reviews = Review.query.filter_by(author=user).order_by(Review.timestamp.desc()).all()
     return render_template('user.html',
                            title=user.nickname + ' profile',
                            user=user,
