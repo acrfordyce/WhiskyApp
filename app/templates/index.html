@@ -4,6 +4,14 @@
         <h1>Welcome to ScotchDB</h1>
         {% if current_user.is_authenticated() %}
         <p>Hello, {{ current_user.nickname }}</p>
+            {% if reviews.items != [] %}
+            <h2>Latest reviews:</h2>
+            {% for review in reviews.items %}
+                {% include 'review.html' %}
+            {% endfor %}
+            {% if reviews.has_prev %}<a href="{{ url_for('index', page=reviews.prev_num) }}">&lt;&lt; Newer reviews
+        </a>{% else %}&lt;&lt; Newer reviews{% endif %} | {% if reviews.has_next %}<a href="{{ url_for('index', page=reviews.next_num) }}">Older reviews &gt;&gt;</a>{% else %}Older reviews &gt;&gt;{% endif %}
+            {% endif %}
         {% else %}
         <h2>Log in to continue</h2>
         <p><a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="static/facebook.png"></a></p>

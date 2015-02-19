@@ -19,6 +19,6 @@
         {% for review in reviews.items %}
             {% include 'review.html' %}
         {% endfor %}
-        {% if reviews.has_prev %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.prev_num) }}">&lt;&lt; Newer reviews
-        </a>{% else %}&lt;&lt; Newer reviews{% endif %} | {% if reviews.has_next %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.next_num) }}">Older reviews &gt;&gt;</a>{% else %}Older reviews &gt;&gt;{% endif %}
+        {% if reviews.has_prev %}<a href="{{ url_for('user', nickname=user.nickname, page=reviews.prev_num) }}">&lt;&lt; Newer reviews
+        </a>{% else %}&lt;&lt; Newer reviews{% endif %} | {% if reviews.has_next %}<a href="{{ url_for('user', nickname=user.nickname, page=reviews.next_num) }}">Older reviews &gt;&gt;</a>{% else %}Older reviews &gt;&gt;{% endif %}
 {% endblock %}

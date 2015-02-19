@@ -23,11 +23,14 @@ def before_request():
 
 @app.route('/')
 @app.route('/index')
-def index():
+@app.route('/index/<int:page>')
+def index(page=1):
     user = current_user
+    reviews = Review.query.order_by(Review.timestamp.desc()).paginate(page, REVIEWS_PER_PAGE, False)
     return render_template('index.html',
                            title='Home',
-                           user=user)
+                           user=user,
+                           reviews=reviews)
 
 
 @app.route('/authorize/<provider>')
