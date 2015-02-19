@@ -25,3 +25,5 @@ OAUTH_PROVIDERS = {
         'secret': 'H13dFDZCleSmU9k_-yCUrrP_'
     }
 }
+
+REVIEWS_PER_PAGE = 10

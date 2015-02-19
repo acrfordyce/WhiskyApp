@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from app.oauth import OAuthSignIn
 from app import app, db, lm
+from config import REVIEWS_PER_PAGE
 from app.models import User, Whisky, Review
 from app.forms import EditProfileForm, AddReviewForm, AddWhiskyForm, REGION_CHOICES
 from datetime import datetime
@@ -67,13 +68,16 @@ def logout():
 
 
 @app.route('/user/<nickname>')
+@app.route('/user/<nickname>/<int:page>')
 @login_required
-def user(nickname):
+def user(nickname, page=1):
     user = User.query.filter_by(nickname=nickname).first()
     if user is None:
         flash('User {0} not found.'.format(nickname))
         return redirect(url_for('index'))
-    reviews = Review.query.filter_by(author=user).order_by(Review.timestamp.desc()).all()
+    reviews = Review.query.filter_by(author=user).order_by(Review.timestamp.desc()).paginate(
+        page, REVIEWS_PER_PAGE, False
+    )
     return render_template('user.html',
                            title=user.nickname + ' profile',
                            user=user,
