@@ -2,46 +2,41 @@
 {% extends 'base.html' %}
 {% block content %}
         <h1>Submit a Whisky</h1>
-        <form action="" method="post" name="add_whisky">
-            {{ form.hidden_tag() }}
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>
-                        {{ form.name }}
+        <div class="well">
+            <form class="form-horizontal" action="" method="post" name="add_whisky">
+                {{ form.hidden_tag() }}
+                <div class="control-group{% if form.errors.name %} error {% endif %}">
+                    <label class="control-label">Name:</label>
+                    <div class="controls">
+                        {{ form.name(maxlength = 120, span = "span4", placeholder = "e.g. Highland Park 12") }}
                         {% for error in form.errors.name %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                    <td>
-                        <i>Examples: Highland Park 12 or Glenmorangie Nectar D'Or</i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Age Statement:</td>
-                    <td>
-                        {{ form.age_statement }}
+                    </div>
+                </div>
+                <div class="control-group{% if form.errors.age_statement %} error {% endif %}">
+                    <label class="control-label">Age Statement:</label>
+                    <div class="controls">
+                        {{ form.age_statement(maxlength = 3, span = "span4", placeholder = "enter NAS if no age statement") }}
                         {% for error in form.errors.age_statement %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                    <td>
-                        <i>Examples: 15 or NAS</i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Region:</td>
-                    <td>
+                    </div>
+                </div>
+                <div class="control-group{% if form.errors.region %} error {% endif %}">
+                    <label class="control-label">Region:</label>
+                    <div class="controls">
                         {{ form.region }}
                         {% for error in form.errors.region %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Submit"></td>
-                </tr>
-            </table>
-        </form>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
 {% endblock %}
