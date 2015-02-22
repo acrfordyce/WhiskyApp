@@ -97,7 +97,6 @@ class TwitterSignIn(OAuthSignIn):
             data={'oauth_verifier': request.args['oauth_verifier']}
         )
         me = oauth_session.get('account/verify_credentials.json').json()
-        print(me)
         social_id = 'twitter$' + str(me.get('id'))
         username = me.get('screen_name')
         picture_uri = me.get('profile_image_url')

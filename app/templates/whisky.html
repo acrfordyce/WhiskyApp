@@ -1,0 +1,23 @@
+<!-- extend base template -->
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'flash.html' %}
+        <h1>{{ whisky.name }}</h1>
+        <h3>Region: {{whisky.region}}</h3>
+        <h3>Total reviews: {{ reviews.total }}</h3>
+        {% for review in reviews.items %}
+            {% include 'review.html' %}
+        {% endfor %}
+        <ul class="pager">
+            {% if reviews.has_prev %}
+            <li class="previous"><a href="{{ url_for('whisky', name=whisky.name, page=reviews.prev_num) }}">Newer Reviews</a></li>
+            {% else %}
+            <li class="previous disabled"><a href="#">Newer Reviews</a></li>
+            {% endif %}
+            {% if reviews.has_next %}
+            <li class="next"><a href="{{ url_for('whisky', name=whisky.name, page=reviews.next_num) }}">Older Reviews</a></li>
+            {% else %}
+            <li class="next disabled"><a href="#">Older Reviews</a></li>
+            {% endif %}
+        </ul>
+{% endblock %}

@@ -2,20 +2,37 @@
 {% extends "base.html" %}
 {% block content %}
         <h1>Welcome to ScotchDB</h1>
+        {% include 'flash.html' %}
         {% if current_user.is_authenticated() %}
-        <p>Hello, {{ current_user.nickname }}</p>
+        <h2>Hello, {{ current_user.nickname }}</h2>
             {% if reviews.items != [] %}
-            <h2>Latest reviews:</h2>
-            {% for review in reviews.items %}
+            <h3>Latest reviews:</h3>
+            <div>
+                {% for review in reviews.items %}
                 {% include 'review.html' %}
-            {% endfor %}
-            {% if reviews.has_prev %}<a href="{{ url_for('index', page=reviews.prev_num) }}">&lt;&lt; Newer reviews
-        </a>{% else %}&lt;&lt; Newer reviews{% endif %} | {% if reviews.has_next %}<a href="{{ url_for('index', page=reviews.next_num) }}">Older reviews &gt;&gt;</a>{% else %}Older reviews &gt;&gt;{% endif %}
+                {% endfor %}
+                <ul class="pager">
+                    {% if reviews.has_prev %}
+                    <li class="previous"><a href="{{ url_for('index', page=reviews.prev_num) }}">Newer Reviews</a></li>
+                    {% else %}
+                    <li class="previous disabled"><a href="#">Newer Reviews</a></li>
+                    {% endif %}
+                    {% if reviews.has_next %}
+                    <li class="next"><a href="{{ url_for('index', page=reviews.next_num) }}">Older Reviews</a></li>
+                    {% else %}
+                    <li class="next disabled"><a href="#">Older Reviews</a></li>
+                    {% endif %}
+                </ul>
+            </div>
             {% endif %}
         {% else %}
         <h2>Log in to continue</h2>
-        <p><a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="static/facebook.png"></a></p>
-        <p><a href="{{ url_for('oauth_authorize', provider='twitter') }}"><img src="static/twitter.png"></a></p>
-        <p><a href="{{ url_for('oauth_authorize', provider='google') }}"><img src="static/google.png" style="height:auto; width:auto; max-width:225px;"></a></p>
+        <div class="well">
+            <div class="control-group">
+                <a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="static/facebook.png"></a>
+                <a href="{{ url_for('oauth_authorize', provider='twitter') }}"><img src="static/twitter.png"></a>
+                <a href="{{ url_for('oauth_authorize', provider='google') }}"><img src="static/google.png" style="height:auto; width:auto; max-width:225px;"></a>
+            </div>
+        </div>
         {% endif %}
 {% endblock %}

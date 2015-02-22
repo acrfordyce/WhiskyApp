@@ -143,6 +143,23 @@ def add_whisky():
                            title='Submit Whisky')
 
 
+@app.route('/whisky/<name>')
+@app.route('/whisky/<name>/<int:page>')
+@login_required
+def whisky(name, page=1):
+    whisky = Whisky.query.filter_by(name=name).first()
+    if whisky is None:
+        flash('Entry for {0} not found.'.format(name))
+        return redirect(url_for('index'))
+    reviews = Review.query.filter_by(whisky=whisky).order_by(Review.timestamp.desc()).paginate(
+        page, REVIEWS_PER_PAGE, False
+    )
+    return render_template('whisky.html',
+                           whisky=whisky,
+                           reviews=reviews,
+                           title=whisky.name)
+
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
