@@ -1,42 +1,58 @@
 <!-- extend base template -->
 {% extends 'base.html' %}
 {% block content %}
+<script type="text/javascript">
+    $(document).ready(function() {
+    var text_max = 500;
+    $('#textarea_feedback').html(text_max + ' characters remaining');
+
+    $('#textarea').keyup(function() {
+        var text_length = $('#textarea').val().length;
+        var text_remaining = text_max - text_length;
+
+        $('#textarea_feedback').html(text_remaining + ' characters remaining');
+    });
+});
+</script>
         <h1>Add a Review</h1>
-        <p>Don't see your whisky in the list? Add it here: <a href="{{ url_for('add_whisky') }}">Submit Whisky</a></p>
-        <form action="" method="post" name="add_review">
-            {{ form.hidden_tag() }}
-            <table>
-                <tr>
-                    <td>Select Whisky:</td>
-                    <td>
+        {% include 'flash.html' %}
+        <div class="well">
+            <p>Don't see your whisky in the list? Add it here: <a href="{{ url_for('add_whisky') }}">Submit Whisky</a></p>
+            <form class="form-horizontal" action="" method="post" name="add_review">
+                {{ form.hidden_tag() }}
+                <div class="control-group{% if form.errors.whisky %} error {% endif %}">
+                    <label class="control-label">Select Whisky:</label>
+                    <div class="controls">
                         {{ form.whisky }}
                         {% for error in form.errors.whisky %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Notes:</td>
-                    <td>
-                        {{ form.notes(cols=32, rows=10) }}
+                    </div>
+                </div>
+                <div class="control-group{% if form.errors.notes %} error {% endif %}">
+                    <label class="control-label">Notes:</label>
+                    <div class="controls">
+                        {{ form.notes(cols = 32, rows = 10, id = "textarea") }}
+                        <div id="textarea_feedback"></div>
                         {% for error in form.errors.notes %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Score (out of 100):</td>
-                    <td>
-                        {{ form.score(size=3) }}
+                    </div>
+                </div>
+                <div class="control-group{% if form.errors.score %} error {% endif %}">
+                    <label class="control-label">Score:</label>
+                    <div class="controls">
+                        {{ form.score(size = 3, placeholder = "out of 100") }}
                         {% for error in form.errors.score %}
-                        <br><span style="color: red;">[{{ error }}]</span>
+                        <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Enter Review"></td>
-                </tr>
-            </table>
-        </form>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
 {% endblock %}

@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% block content %}
         <h1>Submit a Whisky</h1>
+        {% include 'flash.html' %}
         <div class="well">
             <form class="form-horizontal" action="" method="post" name="add_whisky">
                 {{ form.hidden_tag() }}

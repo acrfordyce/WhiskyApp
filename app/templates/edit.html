@@ -1,6 +1,21 @@
 <!-- extend base template -->
 {% extends 'base.html' %}
 {% block content %}
+<script type="text/javascript">
+    $(document).ready(function() {
+    var text_max = 140;
+    var text_length = $('#textarea').val().length;
+    var text_remaining = text_max - text_length;
+    $('#textarea_feedback').html(text_remaining + ' characters remaining');
+
+    $('#textarea').keyup(function() {
+        var text_length = $('#textarea').val().length;
+        var text_remaining = text_max - text_length;
+
+        $('#textarea_feedback').html(text_remaining + ' characters remaining');
+    });
+});
+</script>
         <h1>Edit Your Profile</h1>
         {% include 'flash.html' %}
         <div class="well">
@@ -18,7 +33,8 @@
                 <div class="control-group{% if form.errors.about %} error {% endif %}">
                     <label class="control-label">About yourself:</label>
                     <div class="controls">
-                        {{ form.about(cols = 64, rows = 4, class = "span4") }}
+                        {{ form.about(cols = 64, rows = 4, class = "span4", id = "textarea") }}
+                        <div id="textarea_feedback"></div>
                         {% for error in form.errors.about %}
                         <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}
