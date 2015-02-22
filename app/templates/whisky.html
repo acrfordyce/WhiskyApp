@@ -3,8 +3,15 @@
 {% block content %}
     {% include 'flash.html' %}
         <h1>{{ whisky.name }}</h1>
-        <h3>Region: {{whisky.region}}</h3>
-        <h3>Total reviews: {{ reviews.total }}</h3>
+        <div class="well">
+            <h3>Region: {{whisky.region}}</h3>
+            {% if whisky.age_statement.upper() == "NAS" %}
+            <h3>No age statement</h3>
+            {% else %}
+            <h3>Age statement: {{ whisky.age_statement }} years</h3>
+            {% endif %}
+            <h3>Total reviews: {{ reviews.total }}</h3>
+        </div>
         {% for review in reviews.items %}
             {% include 'review.html' %}
         {% endfor %}
