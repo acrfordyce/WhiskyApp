@@ -2,18 +2,32 @@
 {% extends 'base.html' %}
 {% block content %}
         {% include 'flash.html' %}
-        <table>
-            <tr valign="top">
+        <table class="table">
+            <tr>
                 <td><img src="{{ user.avatar(user.social_id, 'large') }}"></td>
                 <td>
                     <h1>{{ user.nickname }}</h1>
-                    <div class="well">
+                    <div>
                     {% if user.about %}<p>{{ user.about }}</p>{% endif %}
                     {% if user.last_seen %}<p><i>Last seen on: {{ user.last_seen }}</i></p>{% endif %}
                     </div>
                     {% if user.id == current_user.id %}
                     <a href="{{ url_for('edit') }}">Edit</a>
                     {% endif %}
+                </td>
+                <td>
+                    <h2>Stats:</h2>
+                    <div class="well">
+                        <p>Average score: {{ user.get_average_score(user.id) }}</p>
+                        <hr>
+                        <p>Average score - Blend: {{ user.get_average_score(user.id, region='Blend') }}</p>
+                        <p>Average score - Campbeltown: {{ user.get_average_score(user.id, region='Campbeltown') }}</p>
+                        <p>Average score - Highland: {{ user.get_average_score(user.id, region='Highland') }}</p>
+                        <p>Average score - Island: {{ user.get_average_score(user.id, region='Island') }}</p>
+                        <p>Average score - Islay: {{ user.get_average_score(user.id, region='Islay') }}</p>
+                        <p>Average score - Lowland: {{ user.get_average_score(user.id, region='Lowland') }}</p>
+                        <p>Average score - Speyside: {{ user.get_average_score(user.id, region='Speyside') }}</p>
+                    </div>
                 </td>
             </tr>
         </table>

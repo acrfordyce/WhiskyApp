@@ -9,6 +9,14 @@ class Whisky(db.Model):
     region = db.Column(db.String(120))
     reviews = db.relationship('Review', backref='whisky', lazy='dynamic')
 
+    def average_score(self, name):
+        whisky = Whisky.query.filter_by(name=name).first()
+        reviews = whisky.reviews
+        if reviews is None:
+            return "N/A"
+        scores = [float(review.score) for review in reviews]
+        return "%.1f" % (sum(scores)/len(scores))
+
 class User(UserMixin,   db.Model):
     id = db.Column(db.Integer, primary_key=True)
     social_id = db.Column(db.String(64), nullable=False, unique=True)
@@ -56,6 +64,17 @@ class User(UserMixin,   db.Model):
                 return user.picture_uri + '?sz=50'
             return user.picture_uri + '?sz=250'
 
+    def get_average_score(self, user_id, region='all'):
+        user = User.query.filter_by(id=user_id).first()
+        if region == 'all':
+            reviews = user.reviews
+        else:
+            reviews = Review.query.filter_by(user_id=user_id).join(Whisky, (Review.whisky_id == Whisky.id)).filter_by(region=region).all()
+        if reviews == []:
+            return "N/A"
+        scores = [float(review.score) for review in reviews]
+        return "%.1f" % (sum(scores)/len(scores))
+
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -64,3 +83,5 @@ class Review(db.Model):
     score = db.Column(db.Integer)
     timestamp= db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+

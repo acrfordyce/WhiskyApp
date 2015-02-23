@@ -1,16 +1,17 @@
 from flask_wtf import Form
-from wtforms import StringField, TextAreaField, SelectField
+from wtforms import StringField, TextAreaField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length
 from app.models import User, Whisky
 
 
 REGION_CHOICES = [
         (1, "Blend"),
-        (2, "Highland"),
-        (3, "Island"),
-        (4, "Islay"),
-        (5, "Lowland"),
-        (6, "Speyside")
+        (2, "Campbeltown"),
+        (3, "Highland"),
+        (4, "Island"),
+        (5, "Islay"),
+        (6, "Lowland"),
+        (7, "Speyside")
     ]
 
 
@@ -37,7 +38,7 @@ class EditProfileForm(Form):
 class AddReviewForm(Form):
     whisky = SelectField('whisky', choices=[], coerce=int, validators=[DataRequired()])
     notes = TextAreaField('notes', validators=[Length(min=0, max=500)])
-    score = StringField('score', validators=[DataRequired()])
+    score = IntegerField('score', validators=[DataRequired()])
 
     def __init__(self, nickname, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
