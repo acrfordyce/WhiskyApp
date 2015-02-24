@@ -160,6 +160,16 @@ def whisky(name, page=1):
                            title=whisky.name)
 
 
+@app.route('/whisky_list')
+@login_required
+def whisky_list():
+    whiskies = Whisky.query.all()
+    return render_template('whisky_list.html',
+                           whiskies=whiskies,
+                           title='Whisky List'
+    )
+
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404

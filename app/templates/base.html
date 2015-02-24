@@ -26,6 +26,7 @@
                             {% if current_user.is_authenticated() %}
                             <li><a href="{{ url_for('user', nickname=current_user.nickname) }}">Profile</a></li>
                             <li><a href="{{ url_for('add_review', nickname=current_user.nickname) }}">Add Review</a></li>
+                            <li><a href="{{ url_for('whisky_list') }}">Scotch List</a></li>
                             <li><a href="{{ url_for('logout') }}">Logout</a></li>
                             {% endif %}
                         </ul>

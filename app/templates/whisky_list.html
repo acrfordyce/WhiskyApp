@@ -1,0 +1,23 @@
+<!-- extend base template -->
+{% include 'base.html' %}
+{% block content %}
+        {% include 'flash.html' %}
+        <script src="/static/js/sorttable.js"></script>
+        <h1>Scotch List</h1>
+        <div class="well">
+            <table class="table sortable">
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td><strong>Region</strong></td>
+                    <td><strong>Average Score</strong></td>
+                </tr>
+                {% for whisky in whiskies %}
+                <tr>
+                    <td><a href="{{ url_for('whisky', name=whisky.name) }}">{{ whisky.name }}</a></td>
+                    <td>{{ whisky.region }}</td>
+                    <td>{{ whisky.average_score(name=whisky.name) }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+{% endblock %}

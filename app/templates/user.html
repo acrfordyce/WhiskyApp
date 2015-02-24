@@ -18,15 +18,16 @@
                 <td>
                     <h2>Stats:</h2>
                     <div class="well">
-                        <p>Average score: {{ user.get_average_score(user.id) }}</p>
+                        <h3>Average Scores</h3>
+                        <p>Overall: {{ user.get_average_score(user.id) }}</p>
                         <hr>
-                        <p>Average score - Blend: {{ user.get_average_score(user.id, region='Blend') }}</p>
-                        <p>Average score - Campbeltown: {{ user.get_average_score(user.id, region='Campbeltown') }}</p>
-                        <p>Average score - Highland: {{ user.get_average_score(user.id, region='Highland') }}</p>
-                        <p>Average score - Island: {{ user.get_average_score(user.id, region='Island') }}</p>
-                        <p>Average score - Islay: {{ user.get_average_score(user.id, region='Islay') }}</p>
-                        <p>Average score - Lowland: {{ user.get_average_score(user.id, region='Lowland') }}</p>
-                        <p>Average score - Speyside: {{ user.get_average_score(user.id, region='Speyside') }}</p>
+                        <p>Blend: {{ user.get_average_score(user.id, region='Blend') }}</p>
+                        <p>Campbeltown: {{ user.get_average_score(user.id, region='Campbeltown') }}</p>
+                        <p>Highland: {{ user.get_average_score(user.id, region='Highland') }}</p>
+                        <p>Island: {{ user.get_average_score(user.id, region='Island') }}</p>
+                        <p>Islay: {{ user.get_average_score(user.id, region='Islay') }}</p>
+                        <p>Lowland: {{ user.get_average_score(user.id, region='Lowland') }}</p>
+                        <p>Speyside: {{ user.get_average_score(user.id, region='Speyside') }}</p>
                     </div>
                 </td>
             </tr>
