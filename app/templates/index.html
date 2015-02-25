@@ -1,7 +1,7 @@
 <!-- extend base template -->
 {% extends "base.html" %}
 {% block content %}
-        <h1>Welcome to ScotchDB</h1>
+        <h1>Welcome to ScotchMate</h1>
         {% include 'flash.html' %}
         {% if current_user.is_authenticated() %}
         <h2>Hello, {{ current_user.nickname }}</h2>
@@ -29,9 +29,9 @@
         <h2>Log in to continue</h2>
         <div class="well">
             <div class="control-group">
-                <a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="static/facebook.png"></a>
-                <a href="{{ url_for('oauth_authorize', provider='twitter') }}"><img src="static/twitter.png"></a>
-                <a href="{{ url_for('oauth_authorize', provider='google') }}"><img src="static/google.png" style="height:auto; width:auto; max-width:225px;"></a>
+                <a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="{{ url_for('.static', filename='facebook.png') }}"></a>
+                <a href="{{ url_for('oauth_authorize', provider='twitter') }}"><img src="{{ url_for('.static', filename='twitter.png') }}"></a>
+                <a href="{{ url_for('oauth_authorize', provider='google') }}"><img src="{{ url_for('.static', filename='google.png') }}" style="height:auto; width:auto; max-width:225px;"></a>
             </div>
         </div>
         {% endif %}

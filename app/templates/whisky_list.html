@@ -1,7 +1,7 @@
 <!-- extend base template -->
 {% extends 'base.html' %}
 {% block content %}
-        <script src="/static/js/sorttable.js"></script>
+        <script src="{{ url_for('.static', filename='js/sorttable.js') }}"></script>
         <h1>Scotch List</h1>
         <div class="well">
             <table class="table table-hover sortable">
