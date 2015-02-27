@@ -9,12 +9,14 @@
                     <td><strong>Name</strong></td>
                     <td><strong>Region</strong></td>
                     <td><strong>Average Score</strong></td>
+                    <td><strong>Number of Reviews</strong></td>
                 </tr>
                 {% for whisky in whiskies %}
                 <tr>
                     <td><a href="{{ url_for('whisky', name=whisky.name) }}">{{ whisky.name }}</a></td>
                     <td>{{ whisky.region }}</td>
                     <td>{{ whisky.average_score(name=whisky.name) }}</td>
+                    <td>{{ whisky.reviews.count() }}</td>
                 </tr>
                 {% endfor %}
             </table>

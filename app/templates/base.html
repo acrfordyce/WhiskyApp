@@ -24,6 +24,7 @@
                     <a class="brand" href="/">ScotchMate</a>
                         <ul class="nav">
                             <li><a href="{{ url_for('index') }}">Home</a></li>
+                            <li><a href="{{ url_for('about') }}">About</a></li>
                             {% if current_user.is_authenticated() %}
                             <li><a href="{{ url_for('user', nickname=current_user.nickname) }}">Profile</a></li>
                             <li><a href="{{ url_for('add_review', nickname=current_user.nickname) }}">Add Review</a></li>

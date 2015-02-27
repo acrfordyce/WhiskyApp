@@ -5,7 +5,11 @@
         </td>
         <td>
             <p><a href="{{ url_for('user', nickname=review.author.nickname) }}"><i>{{ review.author.nickname }}</i></a> reviewed <strong><a href="{{ url_for('whisky', name=review.whisky.name) }}">{{ review.whisky.name }}</a></strong>:</p>
-            <p>{{ review.notes }}</p>
+            <p>
+                {% for line in review.notes.splitlines() %}
+                    {{ line }}<br/>
+                {% endfor %}
+            </p>
             <p><strong>{{ review.score }}/100</strong></p>
             <p>[{{ review.timestamp }}]</p>
             {% if current_user.nickname == review.author.nickname %}

@@ -33,6 +33,12 @@ def index(page=1):
                            reviews=reviews)
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html',
+                           title="About")
+
+
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous():
@@ -97,7 +103,7 @@ def edit():
         db.session.add(current_user)
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('edit'))
+        return redirect(url_for('user', nickname=current_user.nickname))
     else:
         form.nickname.data = current_user.nickname
         form.about.data = current_user.about
