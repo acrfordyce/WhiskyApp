@@ -8,6 +8,9 @@
             <p>{{ review.notes }}</p>
             <p><strong>{{ review.score }}/100</strong></p>
             <p>[{{ review.timestamp }}]</p>
+            {% if current_user.nickname == review.author.nickname %}
+            <p><a href="{{ url_for('edit_review', review_id=review.id) }}">Edit</a></p>
+            {% endif %}
         </td>
     </tr>
 </table>

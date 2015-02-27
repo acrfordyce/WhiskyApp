@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from app.oauth import OAuthSignIn
 from app import app, db, lm
@@ -125,6 +125,38 @@ def add_review():
     return render_template('add_review.html',
                            form=form,
                            title='Add Review')
+
+
+@app.route('/edit_review/<review_id>', methods=['GET', 'POST'])
+@login_required
+def edit_review(review_id):
+    current_review = Review.query.filter_by(id=review_id).first()
+    form = AddReviewForm(current_user.nickname)
+    whiskies = Whisky.query.order_by(Whisky.name.asc())
+    current_whisky_num = whiskies.all().index(current_review.whisky) + 1
+    choices = list(enumerate([whisky.name for whisky in whiskies], start=1))
+    form.whisky.choices = choices
+    if form.validate_on_submit():
+        if request.form['action'] == 'Cancel':
+            print('Cancel Button')
+            return redirect(url_for('user', nickname=current_user.nickname))
+        print('Submit Button')
+        whisky_display = dict(choices).get(form.whisky.data)
+        whisky = Whisky.query.filter_by(name=whisky_display).first()
+        current_review.whisky = whisky
+        current_review.notes = form.notes.data
+        current_review.score = form.score.data
+        db.session.commit()
+        flash('Your edits have been saved.')
+        return redirect(url_for('user', nickname=current_user.nickname))
+    else:
+        form.whisky.data = current_whisky_num
+        form.notes.data = current_review.notes
+        form.score.data = current_review.score
+    return render_template('edit_review.html',
+                           form=form,
+                           title='Edit Review'
+    )
 
 
 @app.route('/add_whisky', methods=['GET', 'POST'])
