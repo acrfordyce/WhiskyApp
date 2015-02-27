@@ -1,21 +1,7 @@
 <!-- extend base template -->
 {% extends 'base.html' %}
 {% block content %}
-<script type="text/javascript">
-    $(document).ready(function() {
-    var text_max = 500;
-    $('#textarea_feedback').html(text_max + ' characters remaining');
-
-    $('#textarea').keyup(function() {
-        var text_length = $('#textarea').val().length;
-        var text_remaining = text_max - text_length;
-
-        $('#textarea_feedback').html(text_remaining + ' characters remaining');
-    });
-});
-</script>
         <h1>Add a Review</h1>
-        {% include 'flash.html' %}
         <div class="well">
             <p>Don't see your whisky in the list? Add it here: <a href="{{ url_for('add_whisky') }}">Submit Whisky</a></p>
             <form class="form-horizontal" action="" method="post" name="add_review">
@@ -32,8 +18,7 @@
                 <div class="control-group{% if form.errors.notes %} error {% endif %}">
                     <label class="control-label">Notes:</label>
                     <div class="controls">
-                        {{ form.notes(cols = 32, rows = 10, id = "textarea") }}
-                        <div id="textarea_feedback"></div>
+                        {{ form.notes(cols = 32, rows = 10) }}
                         {% for error in form.errors.notes %}
                         <span class="help-inline">[{{ error }}]</span><br>
                         {% endfor %}

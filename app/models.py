@@ -79,7 +79,7 @@ class User(UserMixin,   db.Model):
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     whisky_id = db.Column(db.Integer, db.ForeignKey('whisky.id'))
-    notes = db.Column(db.String(500))
+    notes = db.Column(db.Text)
     score = db.Column(db.Integer)
     timestamp= db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
