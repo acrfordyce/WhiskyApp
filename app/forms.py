@@ -37,7 +37,7 @@ class EditProfileForm(Form):
 
 class AddReviewForm(Form):
     whisky = SelectField('whisky', choices=[], coerce=int, validators=[DataRequired()])
-    notes = TextAreaField('notes', validators=[Length(min=0, max=500)])
+    notes = TextAreaField('notes')
     score = IntegerField('score', validators=[DataRequired()])
 
     def __init__(self, nickname, *args, **kwargs):

@@ -1,6 +1,7 @@
 <!-- extend base template -->
 {% extends 'base.html' %}
 {% block content %}
+        {% include 'flash.html' %}
         <h1>Add a Review</h1>
         <div class="well">
             <p>Don't see your whisky in the list? Add it here: <a href="{{ url_for('add_whisky') }}">Submit Whisky</a></p>

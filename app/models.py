@@ -70,7 +70,8 @@ class User(UserMixin,   db.Model):
             reviews = user.reviews
         else:
             reviews = Review.query.filter_by(user_id=user_id).join(Whisky, (Review.whisky_id == Whisky.id)).filter_by(region=region).all()
-        if reviews == []:
+        review_list = [review for review in reviews]
+        if review_list == []:
             return "N/A"
         scores = [float(review.score) for review in reviews]
         return "%.1f" % (sum(scores)/len(scores))
