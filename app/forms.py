@@ -56,8 +56,4 @@ class AddWhiskyForm(Form):
     def validate(self):
         if not Form.validate(self):
             return False
-        whisky = Whisky.query.filter_by(name=self.name.data).first()
-        if whisky != None:
-            self.name.errors.append('This whisky is already in the database.')
-            return False
         return True

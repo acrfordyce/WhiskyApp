@@ -93,9 +93,9 @@ def user(nickname, page=1):
                            reviews=reviews)
 
 
-@app.route('/edit', methods=['GET', 'POST'])
+@app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
-def edit():
+def edit_profile():
     form = EditProfileForm(current_user.nickname)
     if form.validate_on_submit():
         current_user.nickname = form.nickname.data
@@ -107,7 +107,7 @@ def edit():
     else:
         form.nickname.data = current_user.nickname
         form.about.data = current_user.about
-    return render_template('edit.html',
+    return render_template('edit_profile.html',
                            form=form,
                            title='Edit Profile')
 
@@ -144,9 +144,7 @@ def edit_review(review_id):
     form.whisky.choices = choices
     if form.validate_on_submit():
         if request.form['action'] == 'Cancel':
-            print('Cancel Button')
             return redirect(url_for('user', nickname=current_user.nickname))
-        print('Submit Button')
         whisky_display = dict(choices).get(form.whisky.data)
         whisky = Whisky.query.filter_by(name=whisky_display).first()
         current_review.whisky = whisky
@@ -161,8 +159,34 @@ def edit_review(review_id):
         form.score.data = current_review.score
     return render_template('edit_review.html',
                            form=form,
-                           title='Edit Review'
-    )
+                           title='Edit Review')
+
+@app.route('/exit_whisky/<whisky_id>', methods=['GET', 'POST'])
+@login_required
+def edit_whisky(whisky_id):
+    selected_whisky = Whisky.query.filter_by(id=whisky_id).first()
+    form = AddWhiskyForm()
+    if form.validate_on_submit():
+        print('here')
+        if request.form['action'] == 'Cancel':
+            print('Cancel button')
+            return redirect(url_for('whisky', name=selected_whisky.name))
+        print('Submit button')
+        region_display = dict(REGION_CHOICES).get(form.region.data)
+        selected_whisky.name = form.name.data
+        selected_whisky.age_statement = form.age_statement.data
+        selected_whisky.region = region_display
+        db.session.commit()
+        flash('Your edits have been saved.')
+        return redirect(url_for('whisky', name=selected_whisky.name))
+    else:
+        form.name.data = selected_whisky.name
+        form.age_statement.data = selected_whisky.age_statement
+        INVERSE_REGION = {v: k for k, v in dict(REGION_CHOICES).items()}
+        form.region.data = INVERSE_REGION[selected_whisky.region]
+    return render_template('edit_whisky.html',
+                           form=form,
+                           title='Edit Whisky')
 
 
 @app.route('/add_whisky', methods=['GET', 'POST'])
@@ -204,8 +228,7 @@ def whisky_list():
     whiskies = Whisky.query.all()
     return render_template('whisky_list.html',
                            whiskies=whiskies,
-                           title='Whisky List'
-    )
+                           title='Whisky List')
 
 
 @app.errorhandler(404)

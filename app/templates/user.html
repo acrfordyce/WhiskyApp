@@ -18,7 +18,7 @@
                     {% if user.last_seen %}<p><i>Last seen on: {{ momentjs(user.last_seen).calendar() }}</i></p>{% endif %}
                     </div>
                     {% if user.id == current_user.id %}
-                    <a href="{{ url_for('edit') }}">Edit</a>
+                    <a href="{{ url_for('edit_profile') }}">Edit</a>
                     {% endif %}
                 </td>
                 <td>

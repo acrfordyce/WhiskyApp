@@ -12,6 +12,7 @@
             {% endif %}
             <h3>Total reviews: {{ reviews.total }}</h3>
             <h3>Average score: {{ whisky.average_score(whisky.name) }}</h3>
+            <a href="{{ url_for('edit_whisky', whisky_id=whisky.id) }}">Edit</a>
         </div>
         {% for review in reviews.items %}
             {% include 'review.html' %}
