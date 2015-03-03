@@ -85,8 +85,7 @@ def user(nickname, page=1):
         flash('User {0} not found.'.format(nickname))
         return redirect(url_for('index'))
     reviews = Review.query.filter_by(author=user).order_by(Review.timestamp.desc()).paginate(
-        page, REVIEWS_PER_PAGE, False
-    )
+        page, REVIEWS_PER_PAGE, False)
     return render_template('user.html',
                            title=user.nickname + ' profile',
                            user=user,
@@ -211,8 +210,7 @@ def whisky(name, page=1):
         flash('Entry for {0} not found.'.format(name))
         return redirect(url_for('index'))
     reviews = Review.query.filter_by(whisky=whisky).order_by(Review.timestamp.desc()).paginate(
-        page, REVIEWS_PER_PAGE, False
-    )
+        page, REVIEWS_PER_PAGE, False)
     return render_template('whisky.html',
                            whisky=whisky,
                            reviews=reviews,
