@@ -76,6 +76,13 @@ class User(UserMixin,   db.Model):
         scores = [float(review.score) for review in reviews]
         return "%.1f" % (sum(scores)/len(scores))
 
+    def get_review_count(self, user_id, region='all'):
+        user = User.query.filter_by(id=user_id).first()
+        if region == 'all':
+            return str(user.reviews.count())
+        else:
+            return str(Review.query.filter_by(user_id=user_id).join(Whisky, (Review.whisky_id == Whisky.id)).filter_by(region=region).count())
+
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

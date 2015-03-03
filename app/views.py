@@ -167,11 +167,8 @@ def edit_whisky(whisky_id):
     selected_whisky = Whisky.query.filter_by(id=whisky_id).first()
     form = AddWhiskyForm()
     if form.validate_on_submit():
-        print('here')
         if request.form['action'] == 'Cancel':
-            print('Cancel button')
             return redirect(url_for('whisky', name=selected_whisky.name))
-        print('Submit button')
         region_display = dict(REGION_CHOICES).get(form.region.data)
         selected_whisky.name = form.name.data
         selected_whisky.age_statement = form.age_statement.data

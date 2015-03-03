@@ -22,18 +22,57 @@
                     {% endif %}
                 </td>
                 <td>
-                    <div class="well">
-                        <h3>Average Scores</h3>
-                        <p>Overall: {{ user.get_average_score(user.id) }}</p>
-                        <hr>
-                        <p>Blend: {{ user.get_average_score(user.id, region='Blend') }}</p>
-                        <p>Campbeltown: {{ user.get_average_score(user.id, region='Campbeltown') }}</p>
-                        <p>Highland: {{ user.get_average_score(user.id, region='Highland') }}</p>
-                        <p>Island: {{ user.get_average_score(user.id, region='Island') }}</p>
-                        <p>Islay: {{ user.get_average_score(user.id, region='Islay') }}</p>
-                        <p>Lowland: {{ user.get_average_score(user.id, region='Lowland') }}</p>
-                        <p>Speyside: {{ user.get_average_score(user.id, region='Speyside') }}</p>
-                    </div>
+                    <h3>Stats</h3>
+                    <table class="table table-hover">
+                        <tr>
+                            <td></td>
+                            <td>Average Scores</td>
+                            <td>Reviews</td>
+                        </tr>
+                        <tr>
+                            <td>Overall:</td>
+                            <td>{{ user.get_average_score(user.id) }}</td>
+                            <td>{{ user.get_review_count(user.id) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td>Blend:</td>
+                            <td>{{ user.get_average_score(user.id, region='Blend') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Blend') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Campbeltown:</td>
+                            <td>{{ user.get_average_score(user.id, region='Campbeltown') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Campbeltown') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Highland:</td>
+                            <td>{{ user.get_average_score(user.id, region='Highland') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Highland') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Island:</td>
+                            <td>{{ user.get_average_score(user.id, region='Island') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Island') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Islay:</td>
+                            <td>{{ user.get_average_score(user.id, region='Islay') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Islay') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Lowland:</td>
+                            <td>{{ user.get_average_score(user.id, region='Lowland') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Lowland') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Speyside:</td>
+                            <td>{{ user.get_average_score(user.id, region='Speyside') }}</td>
+                            <td>{{ user.get_review_count(user.id, region='Speyside') }}</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
