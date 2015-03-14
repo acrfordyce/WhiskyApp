@@ -23,6 +23,10 @@ OAUTH_PROVIDERS = {
     'google': {
         'id': '77305032384-kfc4anuckhqvlirvprffberm7e5cmh7s.apps.googleusercontent.com',
         'secret': 'H13dFDZCleSmU9k_-yCUrrP_'
+    },
+    'reddit': {
+        'id': '7KADWZHwjcTUgA',
+        'secret': 'CzUgX8Xl1NXdJo6fJd0Ci7KWUMg'
     }
 }
 

@@ -1,5 +1,6 @@
 from app import db
 from flask_login import UserMixin
+from flask import url_for
 
 
 class Whisky(db.Model):
@@ -63,6 +64,10 @@ class User(UserMixin,   db.Model):
             if size == 'small':
                 return user.picture_uri + '?sz=50'
             return user.picture_uri + '?sz=250'
+        elif user.social_id.split('$')[0] == 'reddit':
+            if size == 'small':
+                return url_for('.static', filename='reddit_snoo_small.png')
+            return user.picture_uri
 
     def get_average_score(self, user_id, region='all'):
         user = User.query.filter_by(id=user_id).first()

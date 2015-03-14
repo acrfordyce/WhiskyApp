@@ -1,6 +1,11 @@
+import requests
+import requests.auth
+import urllib.parse
+
 from config import OAUTH_PROVIDERS
 from flask import url_for, redirect, request, session
 from rauth import OAuth1Service, OAuth2Service
+from uuid import uuid4
 
 
 class OAuthSignIn(object):
@@ -22,13 +27,13 @@ class OAuthSignIn(object):
         return url_for('oauth_callback', provider=self.provider_name, _external=True)
 
     @classmethod
-    def get_provider(self, provider_name):
-        if self.providers is None:
-            self.providers = {}
-            for provider_class in self.__subclasses__():
+    def get_provider(cls, provider_name):
+        if cls.providers is None:
+            cls.providers = {}
+            for provider_class in cls.__subclasses__():
                 provider = provider_class()
-                self.providers[provider.provider_name] = provider
-        return self.providers[provider_name]
+                cls.providers[provider.provider_name] = provider
+        return cls.providers[provider_name]
 
 
 class FacebookSignIn(OAuthSignIn):
@@ -61,9 +66,9 @@ class FacebookSignIn(OAuthSignIn):
         me = oauth_session.get('me').json()
         return (
             'facebook$' + me['id'],
-            me.get('email').split('@')[0], # facebook does not provide username
+            me.get('email').split('@')[0],  # facebook does not provide username
             me.get('email'),
-            None # facebook does not provide profile picture URI on login
+            None  # facebook does not provide profile picture URI on login
         )
 
 
@@ -78,7 +83,7 @@ class TwitterSignIn(OAuthSignIn):
             authorize_url='https://api.twitter.com/oauth/authorize',
             access_token_url='https://api.twitter.com/oauth/access_token',
             base_url='https://api.twitter.com/1.1/'
-            )
+        )
 
     def authorize(self):
         request_token = self.service.get_request_token(
@@ -140,3 +145,61 @@ class GoogleSignIn(OAuthSignIn):
             u.get('email'),
             u.get('picture')
         )
+
+
+class RedditSignIn(OAuthSignIn):
+    def __init__(self):
+        super(RedditSignIn, self).__init__('reddit')
+        self.service = OAuth2Service(
+            name='reddit',
+            client_id=self.consumer_id,
+            client_secret=self.consumer_secret,
+            authorize_url='https://ssl.reddit.com/api/v1/authorize',
+            access_token_url='https://ssl.reddit.com/api/v1/access_token',
+            base_url='https://ssl.reddit.com/',
+        )
+
+
+    def authorize(self):
+        state = str(uuid4())
+        params = {
+            "client_id": self.consumer_id,
+            "response_type": "code",
+            "state": state,
+            "redirect_uri": self.get_callback_url(),
+            "duration": "temporary",
+            "scope": "identity"
+        }
+        url = "https://ssl.reddit.com/api/v1/authorize?" + urllib.parse.urlencode(params)
+        return redirect(url)
+
+    def callback(self):
+        if 'code' not in request.args:
+            return None, None, None, None
+        code = request.args.get('code')
+        print('code:')
+        print(code)
+        client_auth = requests.auth.HTTPBasicAuth(self.consumer_id, self.consumer_secret)
+        post_data = {"grant_type": "authorization_code",
+                     "code": code,
+                     "redirect_uri": self.get_callback_url()}
+        headers = {"User-Agent": "/u/_TiNe_"}
+        response = requests.post("https://ssl.reddit.com/api/v1/access_token",
+                                 auth=client_auth,
+                                 headers=headers,
+                                 data=post_data)
+        token_json = response.json()
+        print('token_json:')
+        print(token_json)
+        access_token = token_json.get("access_token")
+        headers.update({"Authorization": "bearer " + access_token})
+        response = requests.get("https://oauth.reddit.com/api/v1/me", headers=headers)
+        me_json = response.json()
+        return(
+            "reddit$" + me_json.get("name"),
+            me_json.get("name"),
+            None,
+            url_for('.static', filename='reddit_snoo.png')
+        )
+
+
