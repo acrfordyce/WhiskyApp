@@ -16,6 +16,8 @@ class Whisky(db.Model):
         if reviews is None:
             return "N/A"
         scores = [float(review.score) for review in reviews]
+        if not scores:
+            return "N/A"
         return "%.1f" % (sum(scores)/len(scores))
 
 class User(UserMixin,   db.Model):
